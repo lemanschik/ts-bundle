@@ -18,8 +18,6 @@ its not needed to have a indipendent js module per page a design failure of eg: 
 
 This can split eg on property access patterns of your frontend module code and this way lead to much cleaner codebases.
 
-
-
 ## Understand Packaging
 
 ### tsconfig
@@ -38,6 +36,10 @@ if the type of the passed value of the parm does match that type or a type that 
 avoid TLA Top Level Await avoid any code execution in the Module it self only on module.property() a function should get executed avoid assignment like const me = ()(); do not depend on Module Scope whide set Constants.
 Always create a module.property scope around that. 
 
+## Why not a fancy rust or zig implementation?
+Because of the fact that this is much more fast as it can do things once and is not intended to get runned as often as usal bundlers this created a deterministic reuseable incremental upgradeable result. It can even clean up git historys.
+This is not optimized to do the most fast auto refresh module hot reload kind of stuff this refactors eg a ton of bad dependencys into a single good one a dev-bundle so that you do not packages to analyze if you got a package 2 times in your bundle it also aims to be the only clean solution that i am aware of to bundle typescript into single files.
+
 This avoids the need for optimizations like defer while it also opens up the usage of such patterns. so the Module Consumer can choose if he defers our Module or not. Methods like defer should only get used by the developer that codes 
-the most outer part of the software so the Module Integrator your job as module author is to factor a clean Module. that can get used by some one to compose and integrate it into a bigger component of modules and only he knows what should get loaded when and when you depend on such functions to make your module usefull then create a indipendent entrypoint that does that and keep most of the code free from that loading logic hacks.
+the most outer part of the software so the Module Integrator your job as module author is to factor a clean Module. that can get used by some one to compose and integrate it into a bigger component of modules and only he knows what should get.loaded when and when you depend on such functions to make your module usefull then create a indipendent entrypoint that does that and keep most of the code free from that loading logic hacks.
 
